@@ -11,5 +11,7 @@ export interface IModal {
     path: string
 }
 
-export interface Item {
+export interface Items {
+    name: string
+    checked: boolean
 }
