@@ -12,6 +12,11 @@ export interface IModal {
 }
 
 export interface Items {
+    rayon: string
+    products: IProduct[]
+}
+
+export interface IProduct {
     name: string
     checked: boolean
 }

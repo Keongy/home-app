@@ -4,6 +4,10 @@ import { config } from './config/config';
 import Menu from './components/menu/Menu';
 import routes from './config/routes'
 import AuthRoute from './components/authRoute/AuthRoute';
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useEffect, useState } from 'react';
+import { getDatabase, onValue, ref } from 'firebase/database';
+import { Items } from './interfaces/interface';
 
 initializeApp(config.firebaseConfig);
 
