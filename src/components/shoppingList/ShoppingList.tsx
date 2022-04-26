@@ -1,33 +1,27 @@
 import { getDatabase, onValue, ref } from 'firebase/database';
 import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { category } from '../../config/category';
 import { Items } from '../../interfaces/interface';
-import ItemCourse from '../itemCourse/ItemCourse';
+import { ItemsState } from '../../redux/redux';
+import ShoppingItem from './shoppingItem/ShoppingItem';
 
 
-const Category: React.FC = () => {
-    const [items, setItems] = useState<Items[]>([])
+const ShoppingList: React.FC = () => {
 
-    useEffect(() => {
-        const db = getDatabase();
-        const starCountRef = ref(db, 'homeApp/listeCourse');
-        onValue(starCountRef, (snapshot) => {
-            const data = snapshot.val();
-            setItems(data)
-        });
-    }, [])
+    const items = useSelector<any, ItemsState[]>((state) => state.course)
 
 
     return (
-        <div className="category">
+        <div className="ShoppingItem">
             <ul className='list-unstyled'>
                 {items.map((item, index) => (
                     <li key={index}>
                         <h3 className='border'>{item.rayon}</h3>
                         <ul className='list-unstyled'>
-                            {item.products.map((product, index) => (
+                            {item.products.map((product: any, index: number) => (
                                 <li key={index}>
-                                    <ItemCourse
+                                    <ShoppingItem
                                         name={product.name}
                                         checked={product.checked}
                                     />
@@ -41,4 +35,4 @@ const Category: React.FC = () => {
     );
 };
 
-export default Category;
+export default ShoppingList;

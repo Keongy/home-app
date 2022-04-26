@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { IProduct, Items } from '../../interfaces/interface';
+import { useSelector } from 'react-redux';
+import { IProduct, Items } from '../../../interfaces/interface';
 
 
-const ItemCourse: React.FC<IProduct> = (props) => {
+const ShoppingItem: React.FC<IProduct> = (props) => {
     const { name, checked } = props
     const [isChecked, setIsChecked] = useState<boolean>(false)
+
+
+    // const test = useSelector(state => console.log('Check items: ', state))
+
 
     useEffect(() => {
         setIsChecked(checked)
@@ -38,4 +43,4 @@ const ItemCourse: React.FC<IProduct> = (props) => {
     );
 };
 
-export default ItemCourse;
+export default ShoppingItem;

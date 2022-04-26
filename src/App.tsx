@@ -6,13 +6,33 @@ import routes from './config/routes'
 import AuthRoute from './components/authRoute/AuthRoute';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import { getDatabase, onValue, ref } from 'firebase/database';
+import { child, get, getDatabase, onValue, ref } from 'firebase/database';
 import { Items } from './interfaces/interface';
+import { initState } from './redux/redux';
+import { useDispatch } from 'react-redux';
 
 initializeApp(config.firebaseConfig);
 
 
 const App = () => {
+  const dbRef = ref(getDatabase());
+  const dispatch = useDispatch()
+
+
+  useEffect(() => {
+    get(child(dbRef, 'homeApp/listeCourse')).then((snapshot) => {
+      if (snapshot.exists()) {
+        console.log('DATA', snapshot.val());
+        dispatch(initState(snapshot.val()))
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  }, [])
+
+
   return (
     <>
       <header>
