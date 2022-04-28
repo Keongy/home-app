@@ -4,12 +4,11 @@ import { config } from './config/config';
 import Menu from './components/menu/Menu';
 import routes from './config/routes'
 import AuthRoute from './components/authRoute/AuthRoute';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
-import { useEffect, useState } from 'react';
-import { child, get, getDatabase, onValue, ref } from 'firebase/database';
-import { Items } from './interfaces/interface';
+import { useEffect } from 'react';
+import { child, get, getDatabase, ref } from 'firebase/database';
 import { initState } from './redux/redux';
 import { useDispatch } from 'react-redux';
+
 
 initializeApp(config.firebaseConfig);
 
@@ -17,7 +16,6 @@ initializeApp(config.firebaseConfig);
 const App = () => {
   const dbRef = ref(getDatabase());
   const dispatch = useDispatch()
-
 
   useEffect(() => {
     get(child(dbRef, 'homeApp/listeCourse')).then((snapshot) => {

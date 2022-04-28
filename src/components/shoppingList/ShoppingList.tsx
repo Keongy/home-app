@@ -1,9 +1,6 @@
-import { getDatabase, onValue, ref } from 'firebase/database';
-import React, { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { category } from '../../config/category';
-import { Items } from '../../interfaces/interface';
-import { ItemsState } from '../../redux/redux';
+import { IProduct, ItemsState } from '../../interfaces/interface';
 import ShoppingItem from './shoppingItem/ShoppingItem';
 
 
@@ -19,11 +16,14 @@ const ShoppingList: React.FC = () => {
                     <li key={index}>
                         <h3 className='border'>{item.rayon}</h3>
                         <ul className='list-unstyled'>
-                            {item.products.map((product: any, index: number) => (
+                            {item.products.map((product: IProduct, index: number) => (
                                 <li key={index}>
                                     <ShoppingItem
                                         name={product.name}
                                         checked={product.checked}
+                                        id={product.id}
+                                        rayon={item.rayon}
+                                        index={index}
                                     />
                                 </li>
                             ))}

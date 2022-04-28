@@ -1,16 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { getDatabase, ref, set, onValue } from "firebase/database";
+import { getDatabase, ref, set } from "firebase/database";
 import { category } from "../config/category";
+import { v4 as uuid } from 'uuid';
+import { ItemsState } from "../interfaces/interface";
+import { act } from "react-dom/test-utils";
 
-interface IProduct {
-    name: string
-    checked: boolean
-}
 
-export interface ItemsState {
-    products: IProduct[]
-    rayon: string
-}
+
 
 
 const initialState: ItemsState[] = []
@@ -21,9 +17,7 @@ const courseSlice = createSlice({
     initialState,
     reducers: {
         initState: (state, action) => {
-            console.log('State before init', state)
             state = action.payload
-            console.log('State apres init', state)
             return state
         },
         addItem: (state, action) => {
@@ -31,9 +25,11 @@ const courseSlice = createSlice({
             let newProduct: {
                 name: string
                 checked: boolean
+                id: string
             } = {
                 name: action.payload,
-                checked: false
+                checked: false,
+                id: uuid()
             }
 
             if (!state.length) {
@@ -67,17 +63,36 @@ const courseSlice = createSlice({
                 listeCourse: state
             })
         },
-        toggleItem: () => { },
-        deleteItem: () => { }
+        toggleItem: (state, action) => {
+            let index: number = state.findIndex(e => e.rayon === action.payload.rayon)
+            state[index].products.map(e => (e.id === action.payload.id) ? e.checked = !e.checked : null)
+
+            set(ref(getDatabase(), 'homeApp/'), {
+                listeCourse: state
+            })
+        },
+        deleteItem: (state, action) => {
+            let index: number = state.findIndex(e => e.rayon === action.payload.rayon)
+
+            if (state[index].products.length > 1) {
+                state[index].products.splice(action.payload.index, 1)
+            } else {
+                state.splice(index, 1)
+            }
+
+            set(ref(getDatabase(), 'homeApp/'), {
+                listeCourse: state
+            })
+        }
     }
 })
 
-const checkRayonProduct = (product: string) => {
-    let res: string = 'autre'
+function checkRayonProduct(product: string): string {
+    let res: string = 'autre';
     category.map(rayon => (
         res = rayon.products.includes(product) ? rayon.name : res
-    ))
-    return res
+    ));
+    return res;
 }
 
 export const { initState, addItem, toggleItem, deleteItem } = courseSlice.actions

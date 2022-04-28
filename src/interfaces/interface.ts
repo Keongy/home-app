@@ -19,4 +19,10 @@ export interface Items {
 export interface IProduct {
     name: string
     checked: boolean
+    id: string
+}
+
+export interface ItemsState {
+    products: IProduct[]
+    rayon: string
 }
