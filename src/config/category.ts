@@ -71,6 +71,7 @@ export const category = [
         products: [
             'endives',
             'pommes',
+
         ]
     },
     {

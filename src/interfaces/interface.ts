@@ -26,3 +26,8 @@ export interface ItemsState {
     products: IProduct[]
     rayon: string
 }
+
+export interface IListState {
+    name: string
+    products: string[]
+}

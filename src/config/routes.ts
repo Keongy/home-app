@@ -3,6 +3,7 @@ import Courses from "../pages/courses/Courses"
 import Home from "../pages/home/Home"
 import Login from "../pages/login/Login"
 import Recettes from "../pages/recettes/Recettes"
+import Setting from "../pages/setting/Setting"
 import Todolist from "../pages/todolist/Todolist"
 import Voyages from "../pages/voyages/Voyages"
 
@@ -11,7 +12,7 @@ const routes: Iroute[] = [
         path: '/',
         element: Home,
         protected: true,
-        display: false,
+        display: true,
         name: 'Home App'
     },
     {
@@ -48,6 +49,13 @@ const routes: Iroute[] = [
         protected: true,
         display: true,
         name: 'ToDoList'
+    },
+    {
+        path: '/setting',
+        element: Setting,
+        protected: true,
+        display: true,
+        name: 'Setting'
     },
 ]
 

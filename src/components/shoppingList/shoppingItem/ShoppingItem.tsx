@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { deleteItem, toggleItem } from '../../../redux/redux';
+import { deleteItem, toggleItem } from '../../../redux/course.reducer';
 
 
 const ShoppingItem: React.FC<any> = (props) => {
@@ -8,8 +8,11 @@ const ShoppingItem: React.FC<any> = (props) => {
     const dispatch = useDispatch()
 
     return (
-        <div className='d-flex align-items-center justify-content-center'>
-            <p className='me-5 fs-4'>
+        <div className='item'>
+            <p
+                className='text'
+                onClick={() => dispatch(toggleItem({ checked, id, rayon }))}
+            >
                 {checked ? (
                     <s>{name}</s>
                 )
@@ -20,18 +23,20 @@ const ShoppingItem: React.FC<any> = (props) => {
                 }
 
             </p>
-            <input
-                type="checkbox"
-                className='form-check-input'
-                checked={checked}
-                onChange={() => dispatch(toggleItem({ checked, id, rayon }))}
-            />
-            <button
-                className="btn btn-sm btn-danger ms-3"
-                onClick={() => dispatch(deleteItem({ id, rayon, index }))}
-            >
-                X
-            </button>
+            <div className="icons">
+                <input
+                    type="checkbox"
+                    className='form-check-input'
+                    checked={checked}
+                    onChange={() => dispatch(toggleItem({ checked, id, rayon }))}
+                />
+                <button
+                    className="btn btn-sm btn-danger ms-3"
+                    onClick={() => dispatch(deleteItem({ id, rayon, index }))}
+                >
+                    X
+                </button>
+            </div>
         </div>
     );
 };

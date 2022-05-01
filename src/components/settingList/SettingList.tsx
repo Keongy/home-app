@@ -1,11 +1,11 @@
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { IProduct, ItemsState } from '../../interfaces/interface';
-import ShoppingItem from './shoppingItem/ShoppingItem';
+import ShoppingItem from '../shoppingList/shoppingItem/ShoppingItem';
 
+const SettingList: React.FC = () => {
 
-const ShoppingList: React.FC = () => {
-
-    const items = useSelector<any, ItemsState[]>(state => state.course)
+    const items = useSelector<any, ItemsState[]>((state) => state.course)
 
 
     return (
@@ -34,4 +34,4 @@ const ShoppingList: React.FC = () => {
     );
 };
 
-export default ShoppingList;
+export default SettingList;

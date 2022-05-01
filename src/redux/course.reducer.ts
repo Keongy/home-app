@@ -3,14 +3,8 @@ import { getDatabase, ref, set } from "firebase/database";
 import { category } from "../config/category";
 import { v4 as uuid } from 'uuid';
 import { ItemsState } from "../interfaces/interface";
-import { act } from "react-dom/test-utils";
-
-
-
-
 
 const initialState: ItemsState[] = []
-
 
 const courseSlice = createSlice({
     name: 'course',
@@ -59,16 +53,16 @@ const courseSlice = createSlice({
                         state[findRayon].products.push(newProduct)
                     )
             }
-            set(ref(getDatabase(), 'homeApp/'), {
-                listeCourse: state
+            set(ref(getDatabase(), 'homeApp/listeCourse'), {
+                list: state
             })
         },
         toggleItem: (state, action) => {
             let index: number = state.findIndex(e => e.rayon === action.payload.rayon)
             state[index].products.map(e => (e.id === action.payload.id) ? e.checked = !e.checked : null)
 
-            set(ref(getDatabase(), 'homeApp/'), {
-                listeCourse: state
+            set(ref(getDatabase(), 'homeApp/listeCourse'), {
+                list: state
             })
         },
         deleteItem: (state, action) => {
@@ -80,8 +74,8 @@ const courseSlice = createSlice({
                 state.splice(index, 1)
             }
 
-            set(ref(getDatabase(), 'homeApp/'), {
-                listeCourse: state
+            set(ref(getDatabase(), 'homeApp/listeCourse'), {
+                list: state
             })
         }
     }

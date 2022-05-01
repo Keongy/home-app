@@ -1,8 +1,10 @@
 import React, { useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { addItem } from '../../redux/redux';
+import { addItem } from '../../redux/course.reducer';
 
-const Form = () => {
+
+
+const FormCourse = () => {
     const inputRef = useRef<HTMLInputElement | null>(null);
     const dispatch = useDispatch()
 
@@ -28,4 +30,4 @@ const Form = () => {
     );
 };
 
-export default Form;
+export default FormCourse;

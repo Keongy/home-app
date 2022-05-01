@@ -6,7 +6,7 @@ import routes from './config/routes'
 import AuthRoute from './components/authRoute/AuthRoute';
 import { useEffect } from 'react';
 import { child, get, getDatabase, ref } from 'firebase/database';
-import { initState } from './redux/redux';
+import { initState } from './redux/course.reducer';
 import { useDispatch } from 'react-redux';
 
 
@@ -18,7 +18,7 @@ const App = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    get(child(dbRef, 'homeApp/listeCourse')).then((snapshot) => {
+    get(child(dbRef, 'homeApp/listeCourse/list')).then((snapshot) => {
       if (snapshot.exists()) {
         console.log('DATA', snapshot.val());
         dispatch(initState(snapshot.val()))
