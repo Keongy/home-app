@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import courseReducer from './course.reducer';
+import courseReducer from "./course.reducer";
 import settingListReducer from './listCourse.reducer';
 
 

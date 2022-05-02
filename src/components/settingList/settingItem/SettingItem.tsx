@@ -1,6 +1,7 @@
 import React from 'react';
 
-const SettingItem: React.FC<any> = ({ product }) => {
+const SettingItem: React.FC<any> = (props) => {
+    const { product, handleDelete } = props
 
     return (
         <div className='position-relative d-flex justify-content-center align-items-center bg-secondary mb-2'>
@@ -16,7 +17,7 @@ const SettingItem: React.FC<any> = ({ product }) => {
                 </button>
                 <button
                     className="btn btn-sm btn-danger ms-3"
-                    onClick={() => null}
+                    onClick={handleDelete}
                 >
                     X
                 </button>

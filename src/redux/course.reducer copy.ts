@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { getDatabase, ref, set, update } from "firebase/database";
 import { category } from "../config/category";
 import { v4 as uuid } from 'uuid';
-import { IListState, ItemsState } from "../interfaces/interface";
+import { ItemsState } from "../interfaces/interface";
 
 const initialState: ItemsState[] = []
 
@@ -15,13 +15,13 @@ const courseSlice = createSlice({
             return state
         },
         addItem: (state, action) => {
-            let rayon = checkRayonProduct(action.payload.product, action.payload.listRayon)
+            let rayon = checkRayonProduct(action.payload)
             let newProduct: {
                 name: string
                 checked: boolean
                 id: string
             } = {
-                name: action.payload.product,
+                name: action.payload,
                 checked: false,
                 id: uuid()
             }
@@ -53,9 +53,9 @@ const courseSlice = createSlice({
                         state[findRayon].products.push(newProduct)
                     )
             }
-            // set(ref(getDatabase(), 'homeApp/listeCourse'), {
-            //     list: state
-            // })
+            set(ref(getDatabase(), 'homeApp/listeCourse'), {
+                list: state
+            })
         },
         toggleItem: (state, action) => {
             let index: number = state.findIndex(e => e.rayon === action.payload.rayon)
@@ -81,11 +81,8 @@ const courseSlice = createSlice({
     }
 })
 
-
-function checkRayonProduct(product: string, initList: IListState[]): string {
-    console.log('ici', initList)
+function checkRayonProduct(product: string): string {
     let res: string = 'autre';
-
     category.map(rayon => (
         res = rayon.products.includes(product) ? rayon.name : res
     ));

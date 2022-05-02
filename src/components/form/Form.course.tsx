@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { IListState } from '../../interfaces/interface';
 import { addItem } from '../../redux/course.reducer';
 
 
@@ -8,11 +9,14 @@ const FormCourse = () => {
     const inputRef = useRef<HTMLInputElement | null>(null);
     const dispatch = useDispatch()
 
+    const listRayons = useSelector<any, IListState[]>(state => state.settingList)
+
 
     const addProduct = (e: React.FormEvent) => {
         e.preventDefault()
+        let product = inputRef.current?.value
         if (inputRef.current?.value) {
-            dispatch(addItem(inputRef.current?.value))
+            dispatch(addItem({ product, listRayons }))
             inputRef.current.value = ""
         }
     }

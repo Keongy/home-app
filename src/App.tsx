@@ -6,10 +6,10 @@ import routes from './config/routes'
 import AuthRoute from './components/authRoute/AuthRoute';
 import { useEffect } from 'react';
 import { child, get, getDatabase, ref } from 'firebase/database';
-import { initState } from './redux/course.reducer';
 import { useDispatch } from 'react-redux';
 import { initList } from './redux/listCourse.reducer';
 import { maxHeaderSize } from 'http';
+import { initState } from './redux/course.reducer';
 
 
 initializeApp(config.firebaseConfig);

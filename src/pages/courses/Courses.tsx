@@ -3,6 +3,7 @@ import ShoppingList from '../../components/shoppingList/ShoppingList';
 
 const Courses: React.FC = () => {
 
+
     return (
         <div className="container">
             <div className='text-center mt-4'>

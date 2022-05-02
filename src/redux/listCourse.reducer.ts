@@ -56,14 +56,30 @@ const settingListSlice = createSlice({
             })
         },
         deleteItem: (state, action) => {
+            let indexRayon: number = state.findIndex(e => e.rayon.id === action.payload.rayonId)
+            let indexItem = state[indexRayon].products.findIndex(e => e.id === action.payload.itemId)
 
+            state[indexRayon].products.splice(indexItem, 1)
+
+            set(ref(getDatabase(), 'homeApp/initList'), {
+                list: state
+            })
+        },
+        deleteRayon: (state, action) => {
+            let indexRayon: number = state.findIndex(e => e.rayon.id === action.payload)
+
+            state.splice(indexRayon, 1)
+
+            set(ref(getDatabase(), 'homeApp/initList'), {
+                list: state
+            })
         }
     }
 })
 
 
 
-export const { initList, addRayon, addItem } = settingListSlice.actions
+export const { initList, addRayon, addItem, deleteItem, deleteRayon } = settingListSlice.actions
 
 
 export default settingListSlice.reducer
