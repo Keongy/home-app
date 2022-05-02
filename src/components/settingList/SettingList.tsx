@@ -15,17 +15,7 @@ const SettingList: React.FC = () => {
                     <li key={index}>
                         <h3 className='border'>{item.rayon}</h3>
                         <ul className='list-unstyled'>
-                            {item.products.map((product: IProduct, index: number) => (
-                                <li key={index}>
-                                    <ShoppingItem
-                                        name={product.name}
-                                        checked={product.checked}
-                                        id={product.id}
-                                        rayon={item.rayon}
-                                        index={index}
-                                    />
-                                </li>
-                            ))}
+
                         </ul>
                     </li>
                 ))}

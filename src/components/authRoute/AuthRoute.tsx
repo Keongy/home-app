@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Login from "../../pages/login/Login";
+import Loading from "../../pages/loading/Loading";
 
 export interface IAuthRouteProps {
     children: any
@@ -27,7 +28,7 @@ const AuthRoute: React.FunctionComponent<IAuthRouteProps> = (props) => {
 
     return loading ?
         (
-            <Login />
+            <Loading />
         )
         :
         (

@@ -28,6 +28,16 @@ export interface ItemsState {
 }
 
 export interface IListState {
+    rayon: IListName
+    products: IListProducts[]
+}
+
+export interface IListName {
     name: string
-    products: string[]
+    id: string
+}
+
+export interface IListProducts {
+    product: string
+    id: string
 }

@@ -8,6 +8,8 @@ import { useEffect } from 'react';
 import { child, get, getDatabase, ref } from 'firebase/database';
 import { initState } from './redux/course.reducer';
 import { useDispatch } from 'react-redux';
+import { initList } from './redux/listCourse.reducer';
+import { maxHeaderSize } from 'http';
 
 
 initializeApp(config.firebaseConfig);
@@ -18,10 +20,10 @@ const App = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
-    get(child(dbRef, 'homeApp/listeCourse/list')).then((snapshot) => {
+    get(child(dbRef, 'homeApp/initList/list')).then((snapshot) => {
       if (snapshot.exists()) {
-        console.log('DATA', snapshot.val());
-        dispatch(initState(snapshot.val()))
+        // console.log('LIST', snapshot.val());
+        dispatch(initList(snapshot.val()))
       } else {
         console.log("No data available");
       }
@@ -30,13 +32,25 @@ const App = () => {
     });
   }, [])
 
+  get(child(dbRef, 'homeApp/listeCourse/list')).then((snapshot) => {
+    if (snapshot.exists()) {
+      // console.log('DATA', snapshot.val());
+      dispatch(initState(snapshot.val()))
+    } else {
+      console.log("No data available");
+    }
+  }).catch((error) => {
+    console.error(error);
+  });
+
+
+
 
   return (
-    <>
+    <div className='vh-100'>
       <header>
         <Menu />
       </header>
-
       <Routes>
         {routes.map((route, index) =>
           <Route
@@ -45,8 +59,7 @@ const App = () => {
             element={(route.protected ? <AuthRoute><route.element /></AuthRoute> : <route.element />)}
           />)}
       </Routes>
-
-    </>
+    </div>
   );
 };
 
