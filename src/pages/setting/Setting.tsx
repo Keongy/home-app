@@ -14,6 +14,7 @@ const Setting: React.FC = () => {
 
     const listRayon = useSelector<any, IListState[]>(state => state.settingList)
 
+    console.log("listeRayon: ", listRayon)
 
     const handleRayon = (e: React.FormEvent) => {
         e.preventDefault()
