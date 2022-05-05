@@ -73,13 +73,22 @@ const settingListSlice = createSlice({
             set(ref(getDatabase(), 'homeApp/initList'), {
                 list: state
             })
+        },
+        updateRayon: (state, action) => {
+            let indexRayon: number = state.findIndex(e => e.rayon.id === action.payload.rayonId)
+
+            state[indexRayon].rayon.name = action.payload.editRayon
+
+            set(ref(getDatabase(), 'homeApp/initList'), {
+                list: state
+            })
         }
     }
 })
 
 
 
-export const { initList, addRayon, addItem, deleteItem, deleteRayon } = settingListSlice.actions
+export const { initList, addRayon, addItem, deleteItem, deleteRayon, updateRayon } = settingListSlice.actions
 
 
 export default settingListSlice.reducer

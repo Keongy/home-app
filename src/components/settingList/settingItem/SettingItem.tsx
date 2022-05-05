@@ -1,4 +1,5 @@
 import React from 'react';
+import { AiOutlineEdit } from 'react-icons/ai';
 
 const SettingItem: React.FC<any> = (props) => {
     const { product, handleDelete } = props
@@ -9,12 +10,10 @@ const SettingItem: React.FC<any> = (props) => {
                 {product}
             </p>
             <div className="position-absolute end-0">
-                <button
-                    className="btn btn-sm btn-success ms-3"
-                    onClick={() => null}
-                >
-                    /
-                </button>
+                <AiOutlineEdit
+                    className='cursor-pointer'
+
+                />
                 <button
                     className="btn btn-sm btn-danger ms-3"
                     onClick={handleDelete}
