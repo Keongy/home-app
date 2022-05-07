@@ -7,8 +7,6 @@ const ShoppingList: React.FC = () => {
 
     const items = useSelector<any, ItemsState[]>(state => state.course)
 
-    console.log('items:', items)
-
     return (
         <div className="ShoppingItem">
             <ul className='list-unstyled'>

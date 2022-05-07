@@ -2,7 +2,7 @@ import React from 'react';
 import { AiOutlineEdit } from 'react-icons/ai';
 
 const SettingItem: React.FC<any> = (props) => {
-    const { product, handleDelete } = props
+    const { product, handleDelete, handleEdit } = props
 
     return (
         <div className='position-relative d-flex justify-content-center align-items-center bg-secondary mb-2'>
@@ -12,7 +12,7 @@ const SettingItem: React.FC<any> = (props) => {
             <div className="position-absolute end-0">
                 <AiOutlineEdit
                     className='cursor-pointer'
-
+                    onClick={handleEdit}
                 />
                 <button
                     className="btn btn-sm btn-danger ms-3"

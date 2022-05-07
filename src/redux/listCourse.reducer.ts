@@ -82,13 +82,23 @@ const settingListSlice = createSlice({
             set(ref(getDatabase(), 'homeApp/initList'), {
                 list: state
             })
+        },
+        updateProduct: (state, action) => {
+            let indexRayon: number = state.findIndex(e => e.rayon.id === action.payload.rayonId)
+            let indexProduct: number = state[indexRayon].products.findIndex(e => e.id === action.payload.productId)
+
+            state[indexRayon].products[indexProduct].product = action.payload.editProduct
+
+            set(ref(getDatabase(), 'homeApp/initList'), {
+                list: state
+            })
         }
     }
 })
 
 
 
-export const { initList, addRayon, addItem, deleteItem, deleteRayon, updateRayon } = settingListSlice.actions
+export const { initList, addRayon, addItem, deleteItem, deleteRayon, updateRayon, updateProduct } = settingListSlice.actions
 
 
 export default settingListSlice.reducer

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IListState } from '../../interfaces/interface';
-import { addItem, deleteItem, deleteRayon, updateRayon } from '../../redux/listCourse.reducer';
+import { addItem, deleteItem, deleteRayon, updateProduct, updateRayon } from '../../redux/listCourse.reducer';
 import SettingForm from './settingForm/SettingForm';
 import SettingItem from './settingItem/SettingItem';
 import { AiOutlineEdit } from "react-icons/ai";
@@ -9,7 +9,9 @@ import { AiOutlineEdit } from "react-icons/ai";
 const SettingList: React.FC = () => {
     const [items, setItems] = useState<string | undefined | boolean>(undefined)
     const [edit, setEdit] = useState<string | undefined | boolean>("")
-    const [editRayon, setEditRayon] = useState<string | undefined | boolean>("fd")
+    const [editItem, setEditItem] = useState<string | undefined | boolean>("")
+    const [editRayon, setEditRayon] = useState<string | undefined | boolean>("")
+    const [editProduct, setEditProduct] = useState<string | undefined | boolean>("")
 
     const dispatch = useDispatch()
     const listRayon = useSelector<any, IListState[]>(state => state.settingList)
@@ -19,14 +21,30 @@ const SettingList: React.FC = () => {
         setEditRayon(edit)
     }, [edit])
 
+    useEffect(() => {
+        setEditProduct(editItem)
+    }, [editItem])
+
+    const verifItem = (item: string) => {
+        let verif: boolean = false
+        listRayon.map(e => e.products.map(e => e.product === item ? verif = true : null))
+        return verif
+    }
+
 
     const handleItem = (e: React.FormEvent, rayonId: string) => {
         e.preventDefault()
-        let newItem = inputRef.current?.value
         if (inputRef.current?.value) {
-            dispatch(addItem({ newItem, rayonId }))
-            inputRef.current.value = ""
-            setItems(undefined)
+            let newItem = inputRef.current?.value
+
+            if (!verifItem(newItem)) {
+                dispatch(addItem({ newItem, rayonId }))
+                inputRef.current.value = ""
+                setItems(undefined)
+            } else {
+                alert('Le produit existe déjà !')
+                setItems('')
+            }
         }
     }
 
@@ -37,6 +55,8 @@ const SettingList: React.FC = () => {
     const handleChange = (props: string) => {
         if (props === 'rayon') {
             setEditRayon(inputRef.current?.value)
+        } else if (props === 'product') {
+            setEditProduct(inputRef.current?.value)
         }
     }
 
@@ -44,6 +64,12 @@ const SettingList: React.FC = () => {
         e.preventDefault()
         dispatch(updateRayon({ editRayon, rayonId }))
     }
+
+    const handleUpdateProduct = (e: React.FormEvent, rayonId: string, productId: string) => {
+        e.preventDefault()
+        dispatch(updateProduct({ editProduct, rayonId, productId }))
+    }
+
 
     return (
         <ul className='list-unstyled'>
@@ -77,12 +103,27 @@ const SettingList: React.FC = () => {
 
                     {item.products ? (
                         <ul className='list-unstyled'>
-                            {item.products.map((e: any, index: number) => (
+                            {item.products.map((elem: any, index: number) => (
                                 <li key={index}>
-                                    <SettingItem
-                                        product={e.product}
-                                        handleDelete={() => handleDeleteItem(e.id, item.rayon.id)}
-                                    />
+                                    {elem.product === editItem ?
+                                        (
+                                            <SettingForm
+                                                handleClose={setEditItem}
+                                                value={editProduct}
+                                                onChange={() => handleChange('product')}
+                                                checkRef={inputRef}
+                                                handleSubmit={(e: React.FormEvent) => handleUpdateProduct(e, item.rayon.id, elem.id)}
+                                            />
+                                        )
+                                        :
+                                        (
+                                            <SettingItem
+                                                product={elem.product}
+                                                handleDelete={() => handleDeleteItem(elem.id, item.rayon.id)}
+                                                handleEdit={() => setEditItem(elem.product)}
+                                            />
+                                        )
+                                    }
                                 </li>
                             ))}
                         </ul>
