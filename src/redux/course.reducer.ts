@@ -86,9 +86,12 @@ function checkRayonProduct(product: string, initList: IListState[]): string {
     let res: string = 'autre';
 
     initList.map(i => (
-        i.products.map(e => (
-            res = e.product === product ? i.rayon.name : res
-        ))
+        i.products ? (
+            i.products.map(e => (
+                res = e.product === product ? i.rayon.name : res
+            ))
+        )
+            : null
     ))
 
     return res;
