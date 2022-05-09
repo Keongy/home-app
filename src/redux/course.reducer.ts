@@ -5,6 +5,7 @@ import { IListState, ItemsState } from "../interfaces/interface";
 
 const initialState: ItemsState[] = []
 
+
 const courseSlice = createSlice({
     name: 'course',
     initialState,

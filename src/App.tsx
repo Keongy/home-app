@@ -8,7 +8,6 @@ import { useEffect } from 'react';
 import { child, get, getDatabase, ref } from 'firebase/database';
 import { useDispatch } from 'react-redux';
 import { initList } from './redux/listCourse.reducer';
-import { maxHeaderSize } from 'http';
 import { initState } from './redux/course.reducer';
 
 
@@ -23,6 +22,7 @@ const App = () => {
     get(child(dbRef, 'homeApp/initList/list')).then((snapshot) => {
       if (snapshot.exists()) {
         // console.log('LIST', snapshot.val());
+        console.log('Connection DBREF')
         dispatch(initList(snapshot.val()))
       } else {
         console.log("No data available");
@@ -35,6 +35,7 @@ const App = () => {
   get(child(dbRef, 'homeApp/listeCourse/list')).then((snapshot) => {
     if (snapshot.exists()) {
       // console.log('DATA', snapshot.val());
+      console.log('Connection DBREF2222')
       dispatch(initState(snapshot.val()))
     } else {
       console.log("No data available");
@@ -42,7 +43,6 @@ const App = () => {
   }).catch((error) => {
     console.error(error);
   });
-
 
 
 

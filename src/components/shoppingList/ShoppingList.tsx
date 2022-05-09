@@ -3,7 +3,7 @@ import { IProduct, ItemsState } from '../../interfaces/interface';
 import ShoppingItem from './shoppingItem/ShoppingItem';
 
 
-const ShoppingList: React.FC = () => {
+const ShoppingList: React.FC<any> = () => {
 
     const items = useSelector<any, ItemsState[]>(state => state.course)
 

@@ -36,17 +36,16 @@ const SettingList: React.FC = () => {
         e.preventDefault()
         if (inputRef.current?.value) {
             let newItem = inputRef.current?.value
-            dispatch(addItem({ newItem, rayonId }))
             inputRef.current.value = ""
             setItems(undefined)
-            // if (!verifItem(newItem)) {
-            //     dispatch(addItem({ newItem, rayonId }))
-            //     inputRef.current.value = ""
-            //     setItems(undefined)
-            // } else {
-            //     alert('Le produit existe déjà !')
-            //     setItems('')
-            // }
+            if (!verifItem(newItem)) {
+                dispatch(addItem({ newItem, rayonId }))
+                inputRef.current.value = ""
+                setItems(undefined)
+            } else {
+                alert('Le produit existe déjà !')
+                setItems('')
+            }
         }
     }
 

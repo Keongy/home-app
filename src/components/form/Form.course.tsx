@@ -1,3 +1,4 @@
+import { Autocomplete, TextField } from '@mui/material';
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { IListState } from '../../interfaces/interface';
@@ -22,18 +23,31 @@ const FormCourse = () => {
         }
     }
 
-
+    const top100Films = ['tomate', 'cerise', 'poulet', 'viande']
 
     return (
-        <form className='d-flex justify-content-center mt-5 mb-5' onSubmit={(e) => addProduct(e)}>
-            <input
-                type="text"
-                className='form-control w-25'
-                placeholder='Ajouter un produit...'
-                ref={inputRef}
-            />
-            <button className="btn btn-primary">Valider</button>
-        </form>
+        <>
+            {/* <Autocomplete
+                disablePortal
+                freeSolo
+                id="combo-box-demo"
+                options={top100Films}
+                sx={{ width: 300 }}
+                renderInput={(params) => <TextField {...params} label="Produits" />}
+            /> */}
+
+
+
+            <form className='d-flex justify-content-center mt-5 mb-5' onSubmit={(e) => addProduct(e)}>
+                <input
+                    type="text"
+                    className='form-control w-25'
+                    placeholder='Ajouter un produit...'
+                    ref={inputRef}
+                />
+                <button className="btn btn-primary">Valider</button>
+            </form>
+        </>
     );
 };
 
