@@ -27,7 +27,7 @@ const SettingList: React.FC = () => {
 
     const verifItem = (item: string) => {
         let verif: boolean = false
-        listRayon.map(e => e.products.map(e => e.product === item ? verif = true : null))
+        listRayon.map(e => e.products ? e.products.map(e => e.product === item ? verif = true : null) : null)
         return verif
     }
 

@@ -12,7 +12,7 @@ initializeApp(config.firebaseConfig);
 const App = () => {
 
   return (
-    <div className='vh-100'>
+    <div className='container-fluid p-0'>
       <header>
         <Menu />
       </header>

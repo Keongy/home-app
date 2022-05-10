@@ -18,7 +18,7 @@ const Menu: React.FC = () => {
 
 
     return (
-        <nav className="navbar bg-dark justify-content-center">
+        <nav className="navbar navbar-expand-lg bg-dark justify-content-center">
             {routes.map((route, index) => (
                 route.display ? (
                     <Link to={route.path} key={index} className="nav-link fs-5 text-white-50 m-2" >{route.name}</Link>
@@ -28,7 +28,6 @@ const Menu: React.FC = () => {
             ))}
             <button className="btn btn-danger" onClick={logOut}>Se déconnecter</button>
         </nav>
-
     );
 };
 
