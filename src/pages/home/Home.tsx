@@ -4,7 +4,7 @@ import routes from '../../config/routes'
 const Home: React.FC = () => {
 
     return (
-        <div className="home container-fluid text-center">
+        <div className="home container text-center">
             <h1>My Home App</h1>
             <ul className="row d-flex justify-content-center list-unstyled mt-5">
                 {routes.map((modal, index) => {

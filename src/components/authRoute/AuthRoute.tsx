@@ -3,9 +3,10 @@ import { useNavigate } from "react-router";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Loading from "../../pages/loading/Loading";
 import { child, get, getDatabase, ref } from "firebase/database";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { initList } from "../../redux/listCourse.reducer";
 import { initState } from "../../redux/course.reducer";
+import { addUser } from "../../redux/userAuth.reducer";
 
 export interface IAuthRouteProps {
     children: any
@@ -16,22 +17,25 @@ const AuthRoute: React.FunctionComponent<IAuthRouteProps> = (props) => {
     const auth = getAuth();
     const navigate = useNavigate();
     const [loading, setLoading] = useState<boolean>(true);
-    const [user, setUser] = useState<boolean>(false)
 
     const dbRef = ref(getDatabase());
     const dispatch = useDispatch()
+    const user = useSelector<any>(state => state.userAuth)
+
 
 
 
     useEffect(() => {
         onAuthStateChanged(auth, (user) => {
             if (user) {
-                setUser(true)
+                // setUser(true)
                 setLoading(false);
-                console.log("There is an user !");
+                dispatch(addUser(true))
+                // console.log("There is an user !");
 
             } else {
                 setLoading(false);
+                dispatch(addUser(false))
                 console.log('unauthorized');
                 navigate('/login');
             }
@@ -41,10 +45,9 @@ const AuthRoute: React.FunctionComponent<IAuthRouteProps> = (props) => {
     useEffect(() => {
         if (user) {
             get(child(dbRef, 'homeApp/initList/list')).then((snapshot) => {
-                console.log("Step: APP UseEffect")
                 if (snapshot.exists()) {
                     // console.log('LIST', snapshot.val());
-                    console.log('Connection DBREF')
+                    // console.log('Connection DBREF')
                     dispatch(initList(snapshot.val()))
                 } else {
                     console.log("No data available");
@@ -54,10 +57,9 @@ const AuthRoute: React.FunctionComponent<IAuthRouteProps> = (props) => {
             });
 
             get(child(dbRef, 'homeApp/listeCourse/list')).then((snapshot) => {
-                console.log("Step: APP GET")
                 if (snapshot.exists()) {
                     // console.log('DATA', snapshot.val());
-                    console.log('Connection DBREF2222')
+                    // console.log('Connection DBREF2222')
                     dispatch(initState(snapshot.val()))
                 } else {
                     console.log("No data available");
