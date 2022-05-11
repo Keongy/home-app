@@ -4,11 +4,13 @@ export interface Iroute {
     protected: boolean
     name: string
     display: boolean
+    background: string
 }
 
 export interface IModal {
     modal: string
     path: string
+    background: string
 }
 
 export interface Items {

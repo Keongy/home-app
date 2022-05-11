@@ -2,6 +2,7 @@ import { getAuth, signOut } from "firebase/auth";
 import { useNavigate } from "react-router";
 import routes from '../../config/routes';
 import { Link } from "react-router-dom";
+import { AiFillHome } from "react-icons/ai";
 
 const Menu: React.FC = () => {
     const auth = getAuth();
@@ -19,6 +20,10 @@ const Menu: React.FC = () => {
 
     return (
         <nav className="navbar navbar-expand-lg bg-dark justify-content-center">
+            <AiFillHome
+                className="cursor-pointer"
+                onClick={() => navigate('/')}
+            />
             {routes.map((route, index) => (
                 route.display ? (
                     <Link to={route.path} key={index} className="nav-link fs-5 text-white-50 m-2" >{route.name}</Link>

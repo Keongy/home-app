@@ -1,6 +1,6 @@
 .modal-icon {
-    width: 220px;
-    height: 100px;
+    width: 300px;
+    height: 200px;
     background-color: rgba(0, 0, 0, 0.5);
     border-radius: 10px;
     -webkit-border-radius: 10px;
@@ -15,5 +15,9 @@
     &:hover {
         background-color: rgba(0, 0, 0, 0.8);
         cursor: pointer;
+    }
+
+    .filter {
+        z-index: -1;
     }
 }
