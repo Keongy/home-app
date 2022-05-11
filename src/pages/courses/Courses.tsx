@@ -1,5 +1,5 @@
 import { AiFillSetting } from 'react-icons/ai';
-import { Navigate, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 import FormCourse from '../../components/form/Form.course';
 import ShoppingList from '../../components/shoppingList/ShoppingList';
 
